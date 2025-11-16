@@ -21,7 +21,7 @@ connectCloudinary();
 app.use(express.json());
 app.use(
   cors({
-    origin: "https://dine-ease-restaurant.vercel.app/",
+    origin: "https://dine-ease-restaurant.vercel.app",
     credentials: true,
   })
 );
