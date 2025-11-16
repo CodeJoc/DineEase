@@ -1,4 +1,5 @@
 import Booking from "../models/bookingModel.js";
+
 export const createBooking = async (req, res) => {
   try {
     const { id } = req.user;
