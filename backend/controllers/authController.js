@@ -1,15 +1,13 @@
 import User from "../models/userModel.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-
 // Generate JWT
 const generateToken = (res, payload) => {
   const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1d" });
   res.cookie("token", token, {
     httpOnly: true,
-    secure: false,
-    sameSite: "lax",
-    path: "/",
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "none",
     maxAge: 24 * 60 * 60 * 1000,
   });
   return token;
@@ -93,13 +91,11 @@ export const adminLogin = async (req, res) => {
     });
 
     res.cookie("token", token, {
-    httpOnly: true,
-    secure: false,
-    sameSite: "lax",
-    path: "/",
-    maxAge: 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+      maxAge: 24 * 60 * 60 * 1000,
     });
-
 
     return res.json({
       success: true,
